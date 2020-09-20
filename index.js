@@ -67,6 +67,6 @@ app.put("/:randomString/passReset",async function(req,res){
     }
 });
 
-app.listen(process.env.PORT||3000,function(){
+app.listen(process.env.PORT||3000,function(req,res){
     console.log("Server has started!");
 })
