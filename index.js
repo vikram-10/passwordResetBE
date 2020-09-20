@@ -6,7 +6,7 @@ const mongodb=require('mongodb');
 const randomstring=require('randomstring');
 const nodemailer=require('nodemailer');
 const mongoClient=mongodb.MongoClient;
-const url="mongodb://localhost:27017";
+const url="mongodb+srv://vikram:viki2000@cluster0.6e3ep.mongodb.net/<dbname>?retryWrites=true&w=majority";
 
 
 app.use(cors({
@@ -17,15 +17,18 @@ app.use(cors({
 app.use(bodyParser.json());
 
 app.get("/enterEmail",function(req,res){
-    res.send("HELLO WORLD!");
+    res.send("Get Route for enter Email");
 });
 
 app.put("/enterEmail",async function(req,res){
    try{
+       let data=req.body.email;
+       console.log(data);
        let client=await mongoClient.connect(url);
        let db=client.db("passReset");
        let rs=randomstring.generate(20);
-       let foundEmail=await db.collection('users').findOneAndUpdate({email:req.body.email},{$set:{rs:rs}});
+       let foundEmail=await db.collection('users').findOneAndUpdate({email:data},{$set:{rs:rs}});
+       res.json(rs);
        var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -37,7 +40,7 @@ app.put("/enterEmail",async function(req,res){
         from: `formetolearnalltime@gmail.com`,
         to: `${req.body.email}`,
         subject: 'Password Reset',
-        text: 'If you are seeing this, this worked!'
+        text: `Use this link to reset password: http://127.0.0.1:5500/newpass/newpassword.html`
       }
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
@@ -48,7 +51,7 @@ app.put("/enterEmail",async function(req,res){
     });
 }
    catch(err){
-       res.json("Invalid E-Mail ID");
+       console.log("Invalid E-Mail ID");
    }
 });
 
