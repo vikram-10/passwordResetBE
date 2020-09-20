@@ -40,7 +40,7 @@ app.put("/enterEmail",async function(req,res){
         from: `formetolearnalltime@gmail.com`,
         to: `${req.body.email}`,
         subject: 'Password Reset',
-        text: `Use this link to reset password: http://127.0.0.1:5500/newpass/newpassword.html`
+        text: `Use this link to reset password: https://pass-reset.netlify.app/newpass/newpassword.html`
       }
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
