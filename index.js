@@ -6,7 +6,7 @@ const mongodb=require('mongodb');
 const randomstring=require('randomstring');
 const nodemailer=require('nodemailer');
 const mongoClient=mongodb.MongoClient;
-const url="mongodb+srv://vikram:viki2000@cluster0.6e3ep.mongodb.net/<dbname>?retryWrites=true&w=majority";
+const url=process.env.URL;
 
 
 app.use(cors({
