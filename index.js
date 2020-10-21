@@ -33,7 +33,7 @@ app.put("/enterEmail",async function(req,res){
         service: 'gmail',
         auth: {
           user: 'formetolearnalltime@gmail.com',
-          pass: 'trialPass'
+          pass: 'process.env.PASS'
         }
       });
       var mailOptions = {
